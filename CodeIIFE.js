@@ -1,5 +1,5 @@
-var PathCode = (function () {
-  //const ss = SpreadsheetApp.getActive().getSheetByName("Paths");
+var PathCode = (function (undefined) {
+
   const PATH_NAME_COL = 1;
   const CL_COL = 3;
   const NEXT_REVIEW_COL = 6;
@@ -14,9 +14,11 @@ var PathCode = (function () {
   var hasPath = false;
   var email = "";
   var emailsSent = false;
-  Logger.log("IFFE Executed");
 
   function setSheet(value) {
+    if (typeof sheet === 'object') {
+      Logger.log("The sheet by default is an object. Drats.");
+    }
     sheet = value;
   };
 
@@ -27,10 +29,8 @@ var PathCode = (function () {
 
 
   function emailReminder() {
-    Logger.log("in emailReminder sheet = " + sheet);
-    Logger.log("test value " + testValue);
-    if (sheet === null) {
-      Logger.log("The sheet is null - check openById call for accuracy.");
+    if (typeof sheet !== 'object') {
+      sendEmailPrimitive(TOD_EMAIL, "The sheet is not an object - something went seriously wrong.");
       return;
     }
 
