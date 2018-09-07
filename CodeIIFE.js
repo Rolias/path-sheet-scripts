@@ -6,8 +6,8 @@ var PathCode = (function () {
   const NOTIFIED_COL = 7;
   const DEFAULT_EMAIL = "tod-gentille@pluralsight.com";
   const START_ROW = 2;
-  
-  var sheet= "";
+
+  var sheet = "";
   var testValue = 10;
   var row = 0;
   var pathName = "";
@@ -15,25 +15,25 @@ var PathCode = (function () {
   var email = "";
   var emailsSent = false;
   Logger.log("IFFE Executed");
-  
-  function setSheet(value){
+
+  function setSheet(value) {
     sheet = value;
   };
-  
-  
-  function getEmailsSent(){
+
+
+  function getEmailsSent() {
     return emailsSent;
   }
-  
-  
+
+
   function emailReminder() {
-    Logger.log("in emailReminder sheet = "+sheet);
-    Logger.log("test value "+ testValue);
+    Logger.log("in emailReminder sheet = " + sheet);
+    Logger.log("test value " + testValue);
     if (sheet === null) {
       Logger.log("The sheet is null - check openById call for accuracy.");
       return;
     }
-    
+
     row = 1;
     do {
       row += 1;
@@ -41,33 +41,33 @@ var PathCode = (function () {
       if (!hasPath) continue;
       if (!reviewIsDue()) continue;
       if (isNotified()) continue;
-      
+
       sendEmail(getEmail(), pathName);
       Logger.log("sending email for " + pathName + " to " + getEmail());
       markAsNotified();
       emailsSent = true;
-      
+
     } while (hasPath);
   };
-  
-  
+
+
   function setPathInfo() {
     pathName = sheet.getRange(row, PATH_NAME_COL).getValue();
     hasPath = pathName != "";
     Logger.log(row + " " + pathName);
   };
-  
+
   function reviewIsDue() {
     const today = new Date();
     var nextReviewDate = sheet.getRange(row, NEXT_REVIEW_COL).getValue();
     jsNextDate = new Date(nextReviewDate);
     return (today >= nextReviewDate);
   };
-  
+
   function isNotified() {
     return sheet.getRange(row, NOTIFIED_COL).getValue();
   };
-  
+
   function getEmail() {
     const NAME_INDEX = 0;
     const EMAIL_INDEX = 1;
@@ -80,10 +80,10 @@ var PathCode = (function () {
       }
       emailRow += 1;
     } while (result[emailRow][NAME_INDEX] != "");
-    
+
     return DEFAULT_EMAIL;
   };
-  
+
   function sendEmail() {
     const url = "https://docs.google.com/spreadsheets/d/160SN92swvMCd5XXeORyd1jYSdYBTBfVB7M0NJfHk_wQ/edit#gid=0";
     const body = "It's time for the  <a href=" + url + ">" + pathName + "path </a> to be reviewed.";
@@ -91,7 +91,7 @@ var PathCode = (function () {
     var recipient = getEmail();
     sendEmailPrimitive(recipient, subject, body);
   };
-  
+
   function sendEmailPrimitive(recipient, subject, body) {
     MailApp.sendEmail({
       to: recipient,
@@ -100,15 +100,15 @@ var PathCode = (function () {
     });
     Logger.log("Remaining Daily eMail Quota " + MailApp.getRemainingDailyQuota());
   };
-  
+
   function markAsNotified() {
     sheet.getRange(row, NOTIFIED_COL).setValue(true);
   };
-  
+
   return {
     emailReminder: emailReminder,
     setSheet: setSheet,
-    emailsSent: emailsSent,
+    getEmailsSent: getEmailsSent,
     testValue: testValue,
     sendEmailPrimitive: sendEmailPrimitive
   }

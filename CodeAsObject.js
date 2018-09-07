@@ -93,17 +93,5 @@ var PathCode ={
   
 }
 
-// runCode() is set up to run from a daily trigger from 7-8 a.m.
-// see Edit→Current Project's Triggers menu item
-function runCode(){
-  const ss =  SpreadsheetApp.openById("160SN92swvMCd5XXeORyd1jYSdYBTBfVB7M0NJfHk_wQ");
-  PathCode.sheet = ss.getSheetByName("Paths");
-  PathCode.emailsSent = false;
-  Logger.log("Daily run.");
-  PathCode.emailReminder();
-  if (!PathCode.emailsSent){
-    PathCode.sendEmailPrimitive("tod-gentille@pluralsight.com","Test Google App script","If this gets sent it means my daily script ran but no emails were sent out.");
-  }
-}
 
 
