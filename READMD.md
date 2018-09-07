@@ -19,8 +19,9 @@ clasp push #push your changes
 # if you make changes in the google script editor
 clasp pull
 # try not to make changes in the google script editor
-
 ```
+I also added the Project ID to my .clasp.json file per the directions in the Readme on the github project. This allows me to use
+`clasp run 'somescript'`
 
 ## Script Overview
 

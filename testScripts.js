@@ -1,24 +1,23 @@
-var testObject ={
-  x:1,
-  y:2,
-  setx:function (){
+var testObject = {
+  x: 1,
+  y: 2,
+  setx: function () {
     this.x = 5
   },
-  sety:function(){
+  sety: function () {
     this.y = 6;
   },
-  area:function (){
-    return this.x* this.y;
+  area: function () {
+    return this.x * this.y;
   },
-  internal:function (){
+  internal: function () {
     this.x = 10;
     this.y = 20;
     this.setx();
   }
-  
 }
 
-function runTest(){
+function runTest() {
   Logger.clear();
   testObject.setx();
   testObject.sety();
@@ -27,48 +26,49 @@ function runTest(){
   Logger.log(testObject.x);
 }
 
-function testValidation()
-{
+function testValidation() {
   Logger.clear();
   var result = SpreadsheetApp.getActiveSpreadsheet().getRange("emailTable").getValues();
   var row = 0;
-  do{
+  do {
     var entry = result[row];
     var name = result[row][0];
     var email = result[row][1];
     Logger.log(name + " " + email);
     row += 1;
-  } while (name !="");
-  
+  } while (name != "");
+
 }
 
-function testSS()
-{
-//  const ss = SpreadsheetApp.openById("160SN92swvMCd5XXeORyd1jYSdYBTBfVB7M0NJfHk_wQ");
+function testSS() {
+  //  const ss = SpreadsheetApp.openById("160SN92swvMCd5XXeORyd1jYSdYBTBfVB7M0NJfHk_wQ");
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName("Paths");
   // sheet.activate();
- 
+
   Logger.log(sheet.getSheetName());
 }
 
-var TestCode = (function (){
-  
+var TestCode = (function () {
+
   var name = "Tod";
-  function logName(){
+  function logName() {
     Logger.log("I logged the name" + name);
   };
   return {
     pubName: logName,
-    name:name
+    name: name
   };
 }());
 
 
 
-function testIIFE()
-{
+function testIIFE() {
   Logger.log(TestCode.name);
   TestCode.name = "Fred";
   TestCode.pubName();
+}
+
+function testSheetIsUndefined() {
+  PathCode.emailReminder();
 }

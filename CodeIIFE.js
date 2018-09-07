@@ -1,4 +1,4 @@
-var PathCode = (function (undefined) {
+var PathCode = (function () {
 
   const PATH_NAME_COL = 1;
   const CL_COL = 3;
@@ -22,11 +22,9 @@ var PathCode = (function (undefined) {
     sheet = value;
   };
 
-
   function getEmailsSent() {
     return emailsSent;
   }
-
 
   function emailReminder() {
     if (typeof sheet !== 'object') {
@@ -92,7 +90,10 @@ var PathCode = (function (undefined) {
     sendEmailPrimitive(subject, body, recipient);
   };
 
-  function sendEmailPrimitive(subject, body, recipient = DEFAULT_EMAIL) {
+  function sendEmailPrimitive(subject, body, recipient) {
+    if (recipient === undefined) {
+      recipient = DEFAULT_EMAIL;
+    }
     MailApp.sendEmail({
       to: recipient,
       subject: subject,
