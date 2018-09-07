@@ -5,13 +5,10 @@
 // Use >clasp push
 // To push code made on dev machine up here into scripts.
 
-
-//*
-// Clear the notified column anytime the Last Review column is updated
-// so that emails will send again.
-
-const TOD_EMAIL = "tod-gentille@pluralsight.com";
-
+/*
+//* Clear the notified column anytime the Last Review column is updated
+//* so that emails will send again.
+*/
 function onEdit() {
   //When the user changes the Last Review column clear the notified column.
   const ss = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
@@ -45,6 +42,6 @@ function runCode() {
   Logger.log("Daily run using clasp - changed locally.");
   PathCode.emailReminder();
   if (!PathCode.getEmailsSent()) {
-    PathCode.sendEmailPrimitive(TOD_EMAIL, "Test Google App script", "If this gets sent it means my daily script ran but no emails were sent out.");
+    PathCode.sendEmailPrimitive("Path Google App script", "If this gets sent it means my daily script ran but no emails were sent out.");
   }
 }

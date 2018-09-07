@@ -16,9 +16,9 @@ var PathCode = (function (undefined) {
   var emailsSent = false;
 
   function setSheet(value) {
-    if (typeof sheet === 'object') {
-      Logger.log("The sheet by default is an object. Drats.");
-    }
+
+    Logger.log("The sheet type: " + typeof sheet);
+
     sheet = value;
   };
 
@@ -30,7 +30,7 @@ var PathCode = (function (undefined) {
 
   function emailReminder() {
     if (typeof sheet !== 'object') {
-      sendEmailPrimitive(TOD_EMAIL, "The sheet is not an object - something went seriously wrong.");
+      sendEmailPrimitive("App Code Error", "The sheet is not an object - something went seriously wrong.");
       return;
     }
 
@@ -89,10 +89,10 @@ var PathCode = (function (undefined) {
     const body = "It's time for the  <a href=" + url + ">" + pathName + "path </a> to be reviewed.";
     const subject = "Path Update Reminder";
     var recipient = getEmail();
-    sendEmailPrimitive(recipient, subject, body);
+    sendEmailPrimitive(subject, body, recipient);
   };
 
-  function sendEmailPrimitive(recipient, subject, body) {
+  function sendEmailPrimitive(subject, body, recipient = DEFAULT_EMAIL) {
     MailApp.sendEmail({
       to: recipient,
       subject: subject,
