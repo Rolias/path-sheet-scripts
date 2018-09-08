@@ -13,20 +13,14 @@ var PathCode = (function () {
   var pathName = "";
   var hasPath = false;
   var email = "";
-  var emailsSent = false;
 
   function setSheet(value) {
-
     Logger.log("The sheet type: " + typeof sheet);
-
     sheet = value;
   };
 
-  function getEmailsSent() {
-    return emailsSent;
-  }
-
   function emailReminder() {
+    var emailsSent = false;
     if (typeof sheet !== 'object') {
       sendEmailPrimitive("App Code Error", "The sheet is not an object - something went seriously wrong.");
       return;
@@ -41,11 +35,15 @@ var PathCode = (function () {
       if (isNotified()) continue;
 
       sendEmail(getEmail(), pathName);
-      Logger.log("sending email for " + pathName + " to " + getEmail());
+      logMsgViaEmail("sending email for " + pathName + " to " + getEmail());
       markAsNotified();
       emailsSent = true;
 
     } while (hasPath);
+
+    // if (!emailsSent) {
+    //   logMsgViaEmail("Daily path script ran but no emails were sent out.");
+    // }
   };
 
 
@@ -82,6 +80,9 @@ var PathCode = (function () {
     return DEFAULT_EMAIL;
   };
 
+  function logMsgViaEmail(msg) {
+    sendEmailPrimitive("Path App Script Log Message", msg);
+  }
   function sendEmail() {
     const url = "https://docs.google.com/spreadsheets/d/160SN92swvMCd5XXeORyd1jYSdYBTBfVB7M0NJfHk_wQ/edit#gid=0";
     const body = "It's time for the  <a href=" + url + ">" + pathName + "path </a> to be reviewed.";
@@ -109,9 +110,6 @@ var PathCode = (function () {
   return {
     emailReminder: emailReminder,
     setSheet: setSheet,
-    getEmailsSent: getEmailsSent,
-    testValue: testValue,
-    sendEmailPrimitive: sendEmailPrimitive
   }
 }());
 

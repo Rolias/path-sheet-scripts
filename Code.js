@@ -1,3 +1,7 @@
+// FOR USE WITH
+// Google Sheet http://bit.ly/pathtrack
+// Scrip File: bit.ly/pathtrack-script
+
 // REMINDER - Code exists on dev machine at /Users/tod-gentille/dev/clasp/path-update
 // Develop from there to keep code in git repo up-to-date. Don't develop here.
 // Use >clasp pull 
@@ -44,9 +48,5 @@ function runCode() {
   const ss = SpreadsheetApp.getActiveSpreadsheet(); //This works for scripts bound to a sheet, no need to use ID
   const mySheet = ss.getSheetByName("Paths");
   PathCode.setSheet(mySheet);
-  Logger.log("Daily run using clasp - changed locally.");
   PathCode.emailReminder();
-  if (!PathCode.getEmailsSent()) {
-    PathCode.sendEmailPrimitive("Path Google App script", "If this gets sent it means my daily script ran but no emails were sent out.");
-  }
 }
