@@ -1,3 +1,5 @@
+'use strict';
+
 // FOR USE WITH
 // Google Sheet http://bit.ly/pathtrack
 // Scrip File: bit.ly/pathtrack-script
@@ -21,6 +23,8 @@ function onEdit() {
   var cell = ss.getCurrentCell();
   var col = cell.getColumn();
   var row = cell.getRow();
+
+
 
   const LAST_REVIEW_COL = 5;
   const NOTIFIED_COL = 7;

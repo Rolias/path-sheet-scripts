@@ -1,4 +1,4 @@
-
+`use strict`;
 var Email = (function () {
 
     const DEFAULT_EMAIL = "tod-gentille@pluralsight.com";

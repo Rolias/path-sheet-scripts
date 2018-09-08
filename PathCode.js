@@ -16,7 +16,7 @@ var PathCode = (function () {
 
 
   function setSheet(value) {
-    Logger.log("The sheet type: " + typeof sheet);
+    Logger.log("The sheet type: " + typeof sheet)
     sheet = value;
   };
 
