@@ -6,7 +6,6 @@ var PathCode = (function () {
   const CL_COL = 3;
   const NEXT_REVIEW_COL = 6;
   const NOTIFIED_COL = 7;
-  const DEFAULT_EMAIL = "tod-gentille@pluralsight.com";
   const START_ROW = 2;
 
   var sheet = "";
@@ -93,33 +92,4 @@ var PathCode = (function () {
 }());
 
 
-var Email = (function () {
-  function sendToDefault(msg) {
-    sendEmailPrimitive("Path App Script Log Message", msg);
-  }
-  function sendEmail() {
-    const url = "https://docs.google.com/spreadsheets/d/160SN92swvMCd5XXeORyd1jYSdYBTBfVB7M0NJfHk_wQ/edit#gid=0";
-    const body = "It's time for the  <a href=" + url + ">" + pathName + "path </a> to be reviewed.";
-    const subject = "Path Update Reminder";
-    var recipient = getEmail();
-    sendEmailPrimitive(subject, body, recipient);
-  };
-
-  function sendEmailPrimitive(subject, body, recipient) {
-    if (recipient === undefined) {
-      recipient = DEFAULT_EMAIL;
-    }
-    MailApp.send({
-      to: recipient,
-      subject: subject,
-      htmlBody: body,
-    });
-    Logger.log("Remaining Daily eMail Quota " + MailApp.getRemainingDailyQuota());
-  };
-
-  return {
-    sendToDefault: sendToDefault,
-    send: send,
-  }
-}());
 
