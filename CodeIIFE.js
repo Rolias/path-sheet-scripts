@@ -24,7 +24,7 @@ var PathCode = (function () {
   function emailReminder() {
     var emailsSent = false;
     if (typeof sheet !== 'object') {
-      Email.sendDefaultMsg("App Script Error-> The sheet is not an object - something went seriously wrong.");
+      Email.sendToDefault("App Script Error-> The sheet is not an object - something went seriously wrong.");
       return;
     }
 
@@ -37,7 +37,7 @@ var PathCode = (function () {
       if (isNotified()) continue;
 
       Email.send(getEmail(), pathName);
-      Email.sendDefaultMsg("sending email for " + pathName + " to " + getEmail());
+      Email.sendToDefault("sending email for " + pathName + " to " + getEmail());
       markAsNotified();
       emailsSent = true;
 
@@ -94,7 +94,7 @@ var PathCode = (function () {
 
 
 var Email = (function () {
-  function sendDefaultMsg(msg) {
+  function sendToDefault(msg) {
     sendEmailPrimitive("Path App Script Log Message", msg);
   }
   function sendEmail() {
@@ -118,7 +118,7 @@ var Email = (function () {
   };
 
   return {
-    sendDefaultMsg: sendDefaultMsg,
+    sendToDefault: sendToDefault,
     send: send,
   }
 }());
