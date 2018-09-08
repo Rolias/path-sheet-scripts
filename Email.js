@@ -1,6 +1,6 @@
-`use strict`;
-var Email = (function () {
 
+var Email = (function () {
+    `use strict`;
     const DEFAULT_EMAIL = "tod-gentille@pluralsight.com";
 
     function sendToDefault(msg) {
@@ -25,8 +25,13 @@ var Email = (function () {
         Logger.log("Remaining Daily eMail Quota " + MailApp.getRemainingDailyQuota());
     };
 
+    function getDefaultEmail() {
+        return DEFAULT_EMAIL;
+    }
+
     return {
         sendToDefault: sendToDefault,
         send: send,
+        getDefaultEmail: getDefaultEmail,
     }
 }());

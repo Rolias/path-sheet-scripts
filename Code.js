@@ -24,8 +24,6 @@ function onEdit() {
   var col = cell.getColumn();
   var row = cell.getRow();
 
-
-
   const LAST_REVIEW_COL = 5;
   const NOTIFIED_COL = 7;
 
@@ -47,6 +45,7 @@ function onEdit() {
 * by adding the above line runCode is exposed to the sheet. I don't need it in this case
 * but did want to remember how to do it.
 **/
+
 function runCode() {
   //const ss = SpreadsheetApp.openById("160SN92swvMCd5XXeORyd1jYSdYBTBfVB7M0NJfHk_wQ");
   const ss = SpreadsheetApp.getActiveSpreadsheet(); //This works for scripts bound to a sheet, no need to use ID
