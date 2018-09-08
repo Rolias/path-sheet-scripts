@@ -1,3 +1,5 @@
+'use strict'
+
 var PathCode = (function () {
 
   const PATH_NAME_COL = 1;
@@ -12,7 +14,7 @@ var PathCode = (function () {
   var row = 0;
   var pathName = "";
   var hasPath = false;
-  var email = "";
+
 
   function setSheet(value) {
     Logger.log("The sheet type: " + typeof sheet);
@@ -22,7 +24,7 @@ var PathCode = (function () {
   function emailReminder() {
     var emailsSent = false;
     if (typeof sheet !== 'object') {
-      sendEmailPrimitive("App Code Error", "The sheet is not an object - something went seriously wrong.");
+      Email.sendDefaultMsg("App Script Error-> The sheet is not an object - something went seriously wrong.");
       return;
     }
 
@@ -34,8 +36,8 @@ var PathCode = (function () {
       if (!reviewIsDue()) continue;
       if (isNotified()) continue;
 
-      sendEmail(getEmail(), pathName);
-      logMsgViaEmail("sending email for " + pathName + " to " + getEmail());
+      Email.send(getEmail(), pathName);
+      Email.sendDefaultMsg("sending email for " + pathName + " to " + getEmail());
       markAsNotified();
       emailsSent = true;
 
@@ -80,7 +82,19 @@ var PathCode = (function () {
     return DEFAULT_EMAIL;
   };
 
-  function logMsgViaEmail(msg) {
+  function markAsNotified() {
+    sheet.getRange(row, NOTIFIED_COL).setValue(true);
+  };
+
+  return {
+    emailReminder: emailReminder,
+    setSheet: setSheet,
+  }
+}());
+
+
+var Email = (function () {
+  function sendDefaultMsg(msg) {
     sendEmailPrimitive("Path App Script Log Message", msg);
   }
   function sendEmail() {
@@ -95,7 +109,7 @@ var PathCode = (function () {
     if (recipient === undefined) {
       recipient = DEFAULT_EMAIL;
     }
-    MailApp.sendEmail({
+    MailApp.send({
       to: recipient,
       subject: subject,
       htmlBody: body,
@@ -103,15 +117,9 @@ var PathCode = (function () {
     Logger.log("Remaining Daily eMail Quota " + MailApp.getRemainingDailyQuota());
   };
 
-  function markAsNotified() {
-    sheet.getRange(row, NOTIFIED_COL).setValue(true);
-  };
-
   return {
-    emailReminder: emailReminder,
-    setSheet: setSheet,
+    sendDefaultMsg: sendDefaultMsg,
+    send: send,
   }
 }());
-
-
 
