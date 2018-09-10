@@ -10,7 +10,7 @@
 // To pull any updates made here.
 // Use >clasp push
 // To push code made on dev machine up here into scripts.
-
+/* exported onEdit */
 /** 
 * Clear the notified column anytime the Last Review column is updated
 * so that emails will send again.
@@ -46,7 +46,7 @@ function onEdit() {
 * but did want to remember how to do it.
 **/
 
-function runCode() {
+function sendEmailReminder() {
   //const ss = SpreadsheetApp.openById("160SN92swvMCd5XXeORyd1jYSdYBTBfVB7M0NJfHk_wQ");
   const ss = SpreadsheetApp.getActiveSpreadsheet(); //This works for scripts bound to a sheet, no need to use ID
   const mySheet = ss.getSheetByName("Paths");
