@@ -1,6 +1,6 @@
 
 /* exported PathCode */
-var PathCode = (function () {
+var PathCode = (function PathCode() {
   'use strict';
   const PATH_NAME_COL = 1;
   const CL_COL = 3;
@@ -50,6 +50,7 @@ var PathCode = (function () {
   function reviewIsDue() {
     const today = new Date();
     var nextReviewDate = sheet.getRange(row, NEXT_REVIEW_COL).getValue();
+    if (nextReviewDate === "") return false;
     return (today >= nextReviewDate);
   }
 

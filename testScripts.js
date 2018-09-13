@@ -17,6 +17,18 @@ var testObject = {
   }
 }
 
+function testUrlGet(){
+  const API_KEY_PARAM = '?api_key='; //If you want this to work you need a valid key to put here.
+  const API_SUFFIX = '&includeRelated=true&includeTags=false&useCanonical=true';
+  const userWord='tendentious';
+  var apiCall = 'https://api.wordnik.com/v4/word.json/'+userWord+'/definitions'+ API_KEY_PARAM+ API_SUFFIX;
+  result = UrlFetchApp.fetch(apiCall);
+  var resultJson = JSON.parse(result);
+  Logger.log(resultJson[0].word);
+  Logger.log(resultJson[0].text);
+
+}
+
 function runTest() {
   Logger.clear();
   testObject.setx();
@@ -37,7 +49,7 @@ function testValidation() {
     Logger.log(name + " " + email);
     row += 1;
   } while (name != "");
-
+  
 }
 
 function testSS() {
@@ -45,12 +57,12 @@ function testSS() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName("Paths");
   // sheet.activate();
-
+  
   Logger.log(sheet.getSheetName());
 }
 
 var TestCode = (function () {
-
+  
   var name = "Tod";
   function logName() {
     Logger.log("I logged the name" + name);
@@ -61,7 +73,15 @@ var TestCode = (function () {
   };
 }());
 
-
+function blankRowTest(){
+  const ss = SpreadsheetApp.getActiveSpreadsheet(); //This works for scripts bound to a sheet, no need to use ID
+  const mySheet = ss.getSheetByName("Paths");
+  
+  var nextReviewDate = mySheet.getRange(16, 6).getValue();
+  Logger.log(nextReviewDate);
+  if (nextReviewDate ==="")Logger.log("it's blank");
+  
+}
 
 function testIIFE() {
   Logger.log(TestCode.name);
