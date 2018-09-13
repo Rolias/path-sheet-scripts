@@ -4,8 +4,9 @@ var PathCode = (function PathCode() {
   'use strict';
   const PATH_NAME_COL = 1;
   const CL_COL = 3;
+
   const NEXT_REVIEW_COL = 6;
-  const NOTIFIED_COL = 7;
+  const NOTIFIED_COL = 8;
   const START_ROW = 2;
 
   var sheet = "";
